@@ -66,7 +66,7 @@ DuiSystem::~DuiSystem(void)
 		if (pDuiHandler)
 		{
 			delete pDuiHandler;
-		}
+		}		
 	}
 
 	// 销毁DUI对话框
@@ -76,7 +76,7 @@ DuiSystem::~DuiSystem(void)
 		if (pDlgBase)
 		{
 			delete pDlgBase;
-		}
+		}		
 	}
 
 	// 释放各种资源池
@@ -330,7 +330,7 @@ BOOL DuiSystem::LoadResource()
 			if(m_hResourceZip != NULL)
 			{
 				// 如果加载的ZIP资源，则不使用绝对路径加载XML资源定义文件
-				strResFile = _T("xml\\resource.xml");
+				strResFile = _T("xml\\resource.xml");			
 			}
 		}else
 		{
@@ -347,11 +347,11 @@ BOOL DuiSystem::LoadResource()
 		if(nID != 0)
 		{
 			// 读取资源
-			HINSTANCE hInst = AfxGetResourceHandle();
+			HINSTANCE hInst = AfxGetResourceHandle();  
 			HRSRC hRsrc = ::FindResource (hInst,MAKEINTRESOURCE(nID), _T("UI"));
 			if(hRsrc != NULL)
 			{
-				DWORD dwResFileSize = SizeofResource(hInst, hRsrc);
+				DWORD dwResFileSize = SizeofResource(hInst, hRsrc);  
 				BYTE* lpRsrc = (BYTE*)::LoadResource(hInst, hRsrc);
 
 				if(m_hResourceZip != NULL)
@@ -363,7 +363,7 @@ BOOL DuiSystem::LoadResource()
 				if(m_hResourceZip != NULL)
 				{
 					// 如果加载的ZIP资源，则不使用绝对路径加载XML资源定义文件
-					strResFile = _T("xml\\resource.xml");
+					strResFile = _T("xml\\resource.xml");			
 				}
 			}else
 			{
@@ -381,7 +381,7 @@ BOOL DuiSystem::LoadResource()
 	{
 		strResFile = m_strResourceFile;
 	}
-
+	
 	return LoadResourceXml(strResFile, m_strCurStyle);
 }
 
@@ -419,7 +419,7 @@ BOOL DuiSystem::LoadResourceXml(CString strResFile, CString strStyle)
 			{
 				return FALSE;
 			}
-		}
+		}		
 	}else
 	{
 		if(GetFileAttributes(GetExePath() + strResFile) != 0xFFFFFFFF)	// 从exe路径开始查找
@@ -971,7 +971,7 @@ BOOL DuiSystem::LoadFileToBuffer(CString strFileName, BYTE*& pBuffer)
 		{
 			file.Read( pByte, dwSize );
 		}
-		CATCH( CFileException, e );
+		CATCH( CFileException, e );                                          
 		{
 			TRACE(_T( "Load (file): An exception occured while reading the file %s\n"), _strFileName);
 			e->Delete();
@@ -1140,12 +1140,12 @@ CString DuiSystem::GetOSName()
 {
 	int nOSType       =  OS_UNKNOWN;
 	int nServicePack  =  PACK_UNKNOWN;
-
+	
 	// 获取操作系统版本信息
 	OSVERSIONINFOEX osvi;
 	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
+	
 	if( !( GetVersionEx((OSVERSIONINFO *) &osvi ) ) )
 	{
 		osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
@@ -1154,33 +1154,33 @@ CString DuiSystem::GetOSName()
 			return _T("");
 		}
 	}
-
+	
 	//操作系统补丁版本
 	nServicePack = osvi.wServicePackMajor;
 	switch (osvi.dwPlatformId)
 	{
 	case VER_PLATFORM_WIN32_NT:
-
+		
 		if ( osvi.dwMajorVersion <= 4 )
 		{
 			nOSType = WINDOWS_NT;
 		}
-
+		
 		if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
 		{
 			nOSType = WINDOWS_2K;
 		}
-
+		
 		if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
 		{
 			nOSType = WINDOWS_XP;
 		}
-
+		
 		if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 )
 		{
 			nOSType = WINDOWS_2003;
 		}
-
+		
 		if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0 )
 		{
 			nOSType = WINDOWS_VISTA;
@@ -1202,27 +1202,27 @@ CString DuiSystem::GetOSName()
 			nOSType = WINDOWS_HIGH;
 		}
 		break;
-
+		
 	case VER_PLATFORM_WIN32_WINDOWS:
-
+		
 		if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 0)
 		{
 			nOSType = WINDOWS_95;
-		}
-
+		} 
+		
 		if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 10)
 		{
-			nOSType = WINDOWS_98;
-		}
-
+			nOSType = WINDOWS_98; 
+		} 
+		
 		if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 90)
 		{
 			nOSType = WINDOWS_ME;
-		}
+		} 
 		break;
-
-	case VER_PLATFORM_WIN32s:
-
+		
+	case VER_PLATFORM_WIN32s:  
+		
 		nOSType = WINDOWS_WIN32;
 		break;
 	default:
@@ -1331,7 +1331,7 @@ CString DuiSystem::GetDefaultFont(CString strFont)
 	}
 
 	// 低版本操作系统默认字体
-	return TEXT("Tahoma");
+	return TEXT("Tahoma");	
 }
 
 // 获取窗口背景信息
@@ -1400,7 +1400,7 @@ void DuiSystem::RegisterDuiControl(CDuiObjectInfo* pDuiObjectInfo)
 		if (_pDuiObjectInfo == pDuiObjectInfo)
 		{
 			return;
-		}
+		}		
 	}
 
 	m_vecDuiObjectInfo.push_back(pDuiObjectInfo);
@@ -1493,7 +1493,7 @@ void DuiSystem::ReleaseDuiControls()
 			}
 
 			delete pDuiObjectInfo;
-		}
+		}		
 	}
 }
 
@@ -1683,7 +1683,7 @@ void DuiSystem::AddDuiHandler(CDuiHandler* pDuiHandler)
 		if (_pDuiHandler == pDuiHandler)
 		{
 			return;
-		}
+		}		
 	}
 
 	m_vecDuiHandler.push_back(pDuiHandler);
@@ -1762,7 +1762,7 @@ LRESULT DuiSystem::CallDuiHandler(UINT uID, CString strName, UINT uMsg, WPARAM w
 		if (pDuiHandler)
 		{
 			pDuiHandler->OnDuiMessage(uID, strName, uMsg, wParam, lParam);
-		}
+		}		
 	}
 
 	return 0;
@@ -2134,8 +2134,8 @@ BOOL DuiSystem::ExecuteProcess(CString strProcessName, CString strCmdLine, BOOL 
     }else
     {
         bRet = ::CreateProcess(
-            strProcessName,
-            (LPTSTR)(LPCTSTR)strCmdLine,
+            strProcessName, 
+            (LPTSTR)(LPCTSTR)strCmdLine, 
             NULL, NULL, FALSE, 0, NULL, NULL, &si, &processInfo
             );
 
@@ -2524,7 +2524,7 @@ void DuiSystem::CallDuiHandlerTimer(UINT uTimerID, CString strTimerName)
 		if (pDuiHandler)
 		{
 			pDuiHandler->OnTimer(uTimerID, strTimerName);
-		}
+		}		
 	}
 }
 
@@ -2679,7 +2679,7 @@ BOOL DuiSystem::SendInterprocessMessage(UINT uMsg, WPARAM wParam, LPARAM lParam,
 		dwMemoryFileSize*sizeof(TCHAR), // low-order DWORD of size
 		sMemoryFileName);               // name
 
-	DWORD dwError = GetLastError();     // if ERROR_ALREADY_EXISTS
+	DWORD dwError = GetLastError();     // if ERROR_ALREADY_EXISTS 
 	// this instance is not first (other instance created file mapping)
 
 	if(! hFileMapping)
@@ -2779,6 +2779,6 @@ void DuiSystem::LogEvent(int nLevel, LPCTSTR lpFormat, ...)
 	va_start(ap, lpFormat);
 	CLogMgr::Instance()->LogEventArgs(nLevel, lpFormat, ap);
 	va_end(ap);
-
+	
 	LeaveCriticalSection(CLogMgr::Instance()->GetLogMutex());
 }

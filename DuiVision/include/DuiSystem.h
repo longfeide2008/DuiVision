@@ -42,7 +42,7 @@ enum OSPack
 {
 	PACK_UNKNOWN	= -1,
     SP1				= 1,
-    SP2,
+    SP2, 
     SP3,
     SP4,
     SP5,
@@ -228,7 +228,6 @@ protected:
     void createSingletons();
     void destroySingletons();
 
-    CString					m_strLogFile;                           // 指定的日志文件路径
 	CString					m_strResourceFile;						// 资源定义文件名
 	HZIP					m_hResourceZip;							// 资源ZIP文件句柄
 	CMap<CString,LPCTSTR,CString,LPCTSTR> m_mapCfgPool;				// 系统配置信息
@@ -238,7 +237,7 @@ protected:
 	CMap<CString,LPCTSTR,CString,LPCTSTR> m_mapStringPool;			// 字符串池
 	CMap<CString,LPCTSTR,DuiFontInfo,DuiFontInfo&> m_mapFontPool;	// 字体池
 	CMap<CString,LPCTSTR,MemFileInfo,MemFileInfo&> m_mapMemFileCatch;	// 内存文件缓存
-
+	
 	HINSTANCE				m_hInst;
 	UINT					m_uAppID;								// 应用ID
 
