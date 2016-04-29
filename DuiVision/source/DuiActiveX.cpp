@@ -1715,7 +1715,21 @@ bool CDuiActiveX::DoCreateControl()
         Hr = ::CoCreateInstance(m_clsid, NULL, CLSCTX_ALL, IID_IOleControl, (LPVOID*)&pOleControl);
 		if( FAILED(Hr) )
 		{
-			DuiSystem::LogEvent(LOG_LEVEL_ERROR, _T("CoCreateInstance %s failed"), m_clsid);
+			LPOLESTR lpwClsid = NULL;
+			Hr = StringFromCLSID(m_clsid, &lpwClsid);
+			if (SUCCEEDED(Hr))
+			{
+				USES_CONVERSION;
+				LPCTSTR lpszClsid = OLE2T(lpwClsid);
+				DuiSystem::LogEvent(LOG_LEVEL_ERROR, _T("CoCreateInstance %s failed"), lpszClsid);
+				IMalloc * pMalloc = NULL;
+				Hr = ::CoGetMalloc(1, &pMalloc);	// 取得 IMalloc
+				if (SUCCEEDED(Hr))
+				{
+					pMalloc->Free(lpwClsid);		// 释放ProgID内存
+					pMalloc->Release();				// 释放IMalloc
+				}
+			}
 		}
 		// 控件激活
 		OnAxActivate(pOleControl);
@@ -2165,7 +2179,7 @@ bool CDuiFlashCtrl::isExistFlashActiveX()
 	HKEY hKey = NULL;
 
 	// 如果注册表中没有FlashPlayerX，则返回false
-	if(RegOpenKeyEx(HKEY_LOCAL_MACHINE,TEXT("SOFTWARE\\Macromedia\\FlashPlayerActiveX"),0,KEY_READ,&hKey)!=ERROR_SUCCESS)
+	if(RegOpenKeyEx(HKEY_LOCAL_MACHINE,_T("SOFTWARE\\Macromedia\\FlashPlayerActiveX"),0,KEY_READ,&hKey)!=ERROR_SUCCESS)
 		return false;
 
 	std::wstring strValueName;
@@ -2175,10 +2189,10 @@ bool CDuiFlashCtrl::isExistFlashActiveX()
 	DWORD nValueNameBufferLength=1024, nValueType, nDataBudderSize=1024;
 
 	int i=0;  
-	while(RegEnumValue(hKey,i++, (LPWSTR)strValueName.c_str(), &nValueNameBufferLength, NULL, &nValueType, (BYTE*)strDataBuffer.c_str(), &nDataBudderSize) != ERROR_NO_MORE_ITEMS)  
+	while(RegEnumValueW(hKey,i++, (LPWSTR)strValueName.c_str(), &nValueNameBufferLength, NULL, &nValueType, (BYTE*)strDataBuffer.c_str(), &nDataBudderSize) != ERROR_NO_MORE_ITEMS)  
 	{  
 		std::wstring strName(strValueName.c_str());
-		if (strName.compare(_T("PlayerPath")) == 0)
+		if (strName.compare(L"PlayerPath") == 0)
 		{
 
 			if( (_waccess(std::wstring(strDataBuffer.c_str()).c_str(), 0 )) == -1 )
