@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DuiVision.2015", "DuiVision\DuiVision.2015.vcxproj", "{956C8DD0-B286-44FE-B190-7C3666CB6645}"
 EndProject
@@ -24,8 +24,8 @@ Global
 		{956C8DD0-B286-44FE-B190-7C3666CB6645}.DebugMulti|Win32.Build.0 = DebugMulti|Win32
 		{956C8DD0-B286-44FE-B190-7C3666CB6645}.Release_StaticMFC|Win32.ActiveCfg = Release-StaticMFC|Win32
 		{956C8DD0-B286-44FE-B190-7C3666CB6645}.Release_StaticMFC|Win32.Build.0 = Release-StaticMFC|Win32
-		{956C8DD0-B286-44FE-B190-7C3666CB6645}.Release|Win32.ActiveCfg = Release-StaticMFC|Win32
-		{956C8DD0-B286-44FE-B190-7C3666CB6645}.Release|Win32.Build.0 = Release-StaticMFC|Win32
+		{956C8DD0-B286-44FE-B190-7C3666CB6645}.Release|Win32.ActiveCfg = Release|Win32
+		{956C8DD0-B286-44FE-B190-7C3666CB6645}.Release|Win32.Build.0 = Release|Win32
 		{956C8DD0-B286-44FE-B190-7C3666CB6645}.ReleaseMulti|Win32.ActiveCfg = ReleaseMulti|Win32
 		{956C8DD0-B286-44FE-B190-7C3666CB6645}.ReleaseMulti|Win32.Build.0 = ReleaseMulti|Win32
 		{FC22C86E-283A-4CA4-BBCE-883E5D02058F}.Debug|Win32.ActiveCfg = Debug|Win32

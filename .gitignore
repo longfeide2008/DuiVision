@@ -61,3 +61,5 @@ $RECYCLE.BIN/
 *.exp
 *.lib
 *.exe
+*.db
+bin/DuiPluginDemo.dll
